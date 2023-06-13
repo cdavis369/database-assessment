@@ -120,20 +120,26 @@ def add_song_to_playlist(playlist_id):
 
     # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
 
-    playlist = Playlist.query.get_or_404(playlist_id)
-    form = NewSongForPlaylistForm()
-
     # Restrict form to songs not already on this playlist
-
-    songs_off_playlist = (Song
-                          .query
-                          .filter
-                          (~exists()
-                           .where(Song.id == PlaylistSong.song_id)))
     
-    songs = [(song.id, song.title) for song in songs_off_playlist]
+    form = NewSongForPlaylistForm()
     
-    form.song.choices = songs
+    # BROKEN ==========================================================
+    # songs_off_playlist = (Song
+    #                       .query
+    #                       .filter
+    #                       (~exists()
+    #                        .where(Song.id == PlaylistSong.song_id)))
+    # songs = [(song.id, song.title) for song in songs_off_playlist]
+    # =================================================================
+    
+    # FIXED ===========================================================
+    songs_on_playlist = PlaylistSong.query.filter_by(playlist_id=playlist_id).all()
+    sonp_list = [song.id for song in songs_on_playlist]
+    songs_off_playlist = Song.query.filter(~Song.id.in_(sonp_list))
+    soffp_list = [(song.id, song.title) for song in songs_off_playlist]
+    form.song.choices = soffp_list
+    # =================================================================
 
     if form.validate_on_submit():
         playlist_song = PlaylistSong(playlist_id=playlist_id, song_id=form.song.data)
