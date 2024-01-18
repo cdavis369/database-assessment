@@ -2,7 +2,7 @@
 
 Answer the following questions below:
 
-- **What is PostgreSQL? ** 
+- **What is PostgreSQL?** 
 	Postgres is an object-relational database system following compliance with SQL standards.  
 
 ----------
