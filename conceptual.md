@@ -18,7 +18,7 @@ Answer the following questions below:
 ----------
 
 - **What is the difference between `HAVING` and `WHERE`?**  
-	`WHERE` and `HAVING` are used with `SELECT`. `WHERE` is applied to rows before they have been grouped. `HAVING` is applied after the rows have been groups. 
+	`WHERE` and `HAVING` are used with `SELECT`. `WHERE` is applied to rows before they are grouped. `HAVING` is applied after the rows have been groups. 
 
 ----------
 
